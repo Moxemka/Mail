@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Mail;
 
 namespace Mail
 {
@@ -10,12 +12,17 @@ namespace Mail
     {
         static void Main(string[] args)
         {
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
+            var message = new MailMessage("senior.t34@yandex.ru", "smektamp@gmail.com");
+            message.Subject = "Ваш комп включился";
+            message.Body = $"Он включился в {DateTime.Now}";
 
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
+            var client = new SmtpClient("smtp.yandex.ru");
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential("senior.t34@yandex.ru", "MaX333000");
+
+            client.Send(message);
+
+           
         }
     }
 }
